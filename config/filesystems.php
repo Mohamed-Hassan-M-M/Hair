@@ -89,6 +89,12 @@ return [
             'url' => env('APP_URL').'/public',
             'visibility' => 'public',
         ],
+        'combinationFeatures' => [
+            'driver' => 'local',
+            'root' => base_path() . '/public/dashboard/images/combinationFeatures',
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

@@ -80,6 +80,15 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{route('combination_feature.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Combination Feature
+                            <span class="badge badge-info right">{{\App\Models\Combination_feature::count()}}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{route('user_feature.index')}}" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>

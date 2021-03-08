@@ -40,6 +40,7 @@ Route::group(['prefix'=>'dashboard', 'namespace'=>'Dashboard'], function () {
         Route::resource('hair_length', 'HairLengthController');
         Route::resource('skin_tone', 'SkinToneController');
         Route::resource('user_feature', 'UserFeatureController');
+        Route::resource('combination_feature', 'CombinationFeatureController');
         Route::group(['prefix'=>'account'],function (){
             Route::get('/','AdminController@index')->name('admin.account');
             Route::get('/overview','AdminController@overview')->name('admin.account.overview');
