@@ -35,7 +35,7 @@ class ApiAccountController extends Controller
                 $temp[$index]['hair_color']     = $history->Color->colour_hash;
             }
             $temp[$index]['uploaded_image']     = $history->uploaded_image;
-            $temp[$index]['created_image']      = $history->saved_image;
+            $temp[$index]['saved_image']      = $history->saved_image;
             $temp[$index]['created_at']         = $history->created_at;
         }
         return response()->json([
@@ -46,7 +46,57 @@ class ApiAccountController extends Controller
     }
     public function saveHistories(Request $request)
     {
-        
+        //validation
+        $rules = [
+            'face_shape_id'=>['nullable','exists:face_shapes,id'],
+            'skin_tone_id'=>['nullable','exists:skin_tones,id'],
+            'hair_style_id'=>['nullable','exists:hair_styles,id'],
+            'hair_length_id'=>['nullable','exists:hair_lengths,id'],
+            'hair_color_id'=>['nullable','exists:colours,id'],
+            'uploaded_image'=>['image','required'],
+            'saved_image'=>['image','required'],
+        ];
+        $validator = Validator::make($request->all(), $rules);
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'validation error',
+                'data' => $validator->errors()
+            ]);
+        }
+        try {
+            $userHistory = new User_feature();
+            $userHistory->user_id = auth('api')->user()->id;
+            if($request->has('face_shape_id')) {
+                $userHistory->face_shape_id = $request->face_shape_id;
+            }
+            if($request->has('skin_tone_id')) {
+                $userHistory->skin_tone_id = $request->skin_tone_id;
+            }
+            if($request->has('hair_style_id')) {
+                $userHistory->hair_style_id = $request->hair_style_id;
+            }
+            if($request->has('hair_length_id')) {
+                $userHistory->hair_length_id = $request->hair_length_id;
+            }
+            if($request->has('hair_color_id')) {
+                $userHistory->hair_color_id = $request->hair_color_id;
+            }
+            $userHistory->uploaded_image = saveImage('userFeatures',$request->uploaded_image);
+            $userHistory->saved_image = saveImage('userFeatures',$request->saved_image);
+            $userHistory->save();
+            return response()->json([
+                'status' => true,
+                'msg' => 'saved successfully',
+                'data' => 'user history saved successfully'
+            ]);
+        }catch (\Exception $ex){
+            return response()->json([
+                'status' => false,
+                'msg' => 'some thing went wrong',
+                'data' => $ex
+            ]);
+        }
     }
     public function showProfile(Request $request)
     {

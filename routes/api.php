@@ -18,7 +18,8 @@ Route::group(['middleware' => ['api','checkPassword'], 'namespace' => 'Api'], fu
     Route::post('color','ApiController@color');
     Route::post('hair_style','ApiController@hair_style');
     Route::post('hair_length','ApiController@hair_length');
-    Route::post('skin_tone','ApiController@skin_tone');/////////////////!!!!!!!!!!!!
+    Route::post('face_shape','ApiController@face_shape');
+    Route::post('skin_tone','ApiController@skin_tone');///////////////!!!!!!!!!!!!
     Route::post('login','ApiUserAuthController@login');
     Route::post('register','ApiUserAuthController@register');
 
