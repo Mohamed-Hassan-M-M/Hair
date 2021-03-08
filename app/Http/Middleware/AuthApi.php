@@ -3,9 +3,10 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use JWTAuth;
+use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
-class AuthApi
+class AuthApi extends BaseMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,13 +18,7 @@ class AuthApi
     public function handle($request, Closure $next, $guard = null)
     {
         try {
-            if (! $user = JWTAuth::parseToken()->authenticate()) {
-                return response()->json([
-                    'status' => false,
-                    'msg' => '404 error',
-                    'data' => 'Unauthenticated'
-                ]);
-            }
+            $user = JWTAuth::parseToken()->authenticate();
         } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
             return response()->json([
                 'status' => false,
@@ -41,6 +36,12 @@ class AuthApi
                 'status' => false,
                 'msg' => 'token_absent',
                 'data' => $e->getStatusCode()
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'status' => false,
+                'msg' => 'unauthenticated',
+                'data' => 'no or wrong token'
             ]);
         }
         return $next($request);

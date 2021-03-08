@@ -124,28 +124,24 @@
             // ID of the element in which to draw the chart.
             element: 'hairStyleChart',
             // Chart data records -- each entry in this array corresponds to a point on
-            // the chart.
             data: [
-                @if(array_key_exists(date("d",strtotime("-7 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-7 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-7 day"))]}} }, @endif
-                @if(array_key_exists(date("d",strtotime("-6 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-6 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-6 day"))]}} }, @endif
-                @if(array_key_exists(date("d",strtotime("-5 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-5 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-5 day"))]}} }, @endif
-                @if(array_key_exists(date("d",strtotime("-4 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-4 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-4 day"))]}} }, @endif
-                @if(array_key_exists(date("d",strtotime("-3 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-3 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-3 day"))]}} }, @endif
-                @if(array_key_exists(date("d",strtotime("-2 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-2 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-2 day"))]}} }, @endif
-                @if(array_key_exists(date("d",strtotime("-1 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-1 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-1 day"))]}} } @endif
+                @if(array_key_exists(date("d",strtotime("-7 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-7 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-7 day"))]}} }, @else { day: '{{date("Y-m-d",strtotime("-7 day"))}}', value: 0 }, @endif
+                @if(array_key_exists(date("d",strtotime("-6 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-6 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-6 day"))]}} }, @else { day: '{{date("Y-m-d",strtotime("-6 day"))}}', value: 0 }, @endif
+                @if(array_key_exists(date("d",strtotime("-5 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-5 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-5 day"))]}} }, @else { day: '{{date("Y-m-d",strtotime("-5 day"))}}', value: 0 }, @endif
+                @if(array_key_exists(date("d",strtotime("-4 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-4 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-4 day"))]}} }, @else { day: '{{date("Y-m-d",strtotime("-4 day"))}}', value: 0 }, @endif
+                @if(array_key_exists(date("d",strtotime("-3 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-3 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-3 day"))]}} }, @else { day: '{{date("Y-m-d",strtotime("-3 day"))}}', value: 0 }, @endif
+                @if(array_key_exists(date("d",strtotime("-2 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-2 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-2 day"))]}} }, @else { day: '{{date("Y-m-d",strtotime("-2 day"))}}', value: 0 }, @endif
+                @if(array_key_exists(date("d",strtotime("-1 day")), $hairStyleChart)) { day: '{{date("Y-m-d",strtotime("-1 day"))}}', value: {{$hairStyleChart[date("d",strtotime("-1 day"))]}} } @else { day: '{{date("Y-m-d",strtotime("-1 day"))}}', value: 0 } @endif
             ],
             // The name of the data record attribute that contains x-values.
             xkey: 'day',
             // A list of names of data record attributes that contain y-values.
             ykeys: ['value'],
             // Labels for the ykeys -- will be displayed when you hover over the
-            // chart.
             labels: ['value'],
             xLabelFormat: function (x) {
                 return showDay(x.getDay());
             },
-            //lineColors:['#555']
-
         });
         function showDay(dayNo)
         {

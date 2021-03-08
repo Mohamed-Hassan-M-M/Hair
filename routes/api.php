@@ -15,20 +15,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::group(['middleware' => ['api','checkPassword'], 'namespace' => 'Api'], function () {
-    Route::get('color','ApiController@color');
-    Route::get('hair_style','ApiController@hair_style');
-    Route::get('hair_length','ApiController@hair_length');
+    Route::post('color','ApiController@color');
+    Route::post('hair_style','ApiController@hair_style');
+    Route::post('hair_length','ApiController@hair_length');
+    Route::post('skin_tone','ApiController@skin_tone');/////////////////!!!!!!!!!!!!
     Route::post('login','ApiUserAuthController@login');
     Route::post('register','ApiUserAuthController@register');
 
-
-    Route::group(['prefix' => 'user' ,'middleware' => ['auth_api:api','role:user']],function (){
-        Route::get('logout','ApiUserAuthController@logout');
+    Route::group(['prefix' => 'user' ,'middleware' => ['auth_api:api']],function (){
+        Route::post('logout','ApiUserAuthController@logout');
         Route::post('profile',function(){
             return 'Only authenticated user can reach me';
         }) ;
-        Route::post('history',function(){
-            return 'Only authenticated user can reach me';
-        }) ;
+        Route::post('saveHistories','') ;
     });
 });

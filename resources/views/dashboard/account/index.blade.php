@@ -110,6 +110,7 @@
                         });
                     }
                 })
+            });
             $(document).on('click','#password',function (e){
                 e.preventDefault();
                 $.ajax({
@@ -129,21 +130,28 @@
             });
             $(document).on('click','#updatePassword',function (e){
                 e.preventDefault();
-                var form = $('#updateform')[0];
+                $('#old_password_error').hide();
+                $('#old_password_error').text('');
+                var form = $('#passwordform')[0];
                 var dataform = new FormData(form);
                 $.ajax({
                     type:'post',
-                    url:'{{route('admin.account.doEditProfile')}}',
+                    url:'{{route('admin.account.password.reset')}}',
                     data:dataform,
                     processData: false,
                     contentType: false,
                     success:function (data){
                         if(data.status === true)
                         {
-                            $("#user_name_error").hide();
-                            $("#email_error").hide();
+                            location.reload();
+                        }
+                        if(data.status === false)
+                        {
+                            $("#password_error").hide();
                             $('#content').html('');
                             $('#content').html(data.view);
+                            $('#old_password_error').show();
+                            $('#old_password_error').text(data.error);
                         }
                     },
                     error:function (reject){

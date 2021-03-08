@@ -27,7 +27,6 @@ class DashboardController extends Controller
             }
             $hairStyleChart[$day] = $hairStyle->count;
         }
-        //return [$hairStyleChart, $hairStyleChart[date("d",strtotime("-7 day"))]];
         return view('dashboard.index',compact(['hairStyleChart']));
     }
 }

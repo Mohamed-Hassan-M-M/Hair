@@ -32,11 +32,11 @@ class AdminController extends Controller
     }
     public function updateProfile(UserRequest $request)
     {
-        Auth::user()->user_name = $request->user_name;
-        Auth::user()->first_name = $request->first_name;
-        Auth::user()->last_name = $request->last_name;
-        Auth::user()->email = $request->email;
-        Auth::user()->save();
+        Auth::guard('web')->user()->user_name = $request->user_name;
+        Auth::guard('web')->user()->first_name = $request->first_name;
+        Auth::guard('web')->user()->last_name = $request->last_name;
+        Auth::guard('web')->user()->email = $request->email;
+        Auth::guard('web')->user()->save();
         $view = view('dashboard.account.overview')->render();
         return response()->json([
             'status'=>true,
@@ -53,15 +53,22 @@ class AdminController extends Controller
     }
     public function resetPassword(UserRequest $request)
     {
+
         if(Hash::check($request->old_password ,auth()->user()->password))
         {
-            auth()->user()->update(['password'=>Hash::make($request->password)]);
-            Auth::logout();
-            return view('dashboard.auth.login');
+            auth('web')->user()->update(['password'=>Hash::make($request->password)]);
+            Auth::guard('web')->logout();
+            return response()->json([
+                'status'=>true,
+            ]);
         }
         else{
-            return 'fzdb';
-            return redirect()->back()->with(['error'=>'Your password is wrong.']);
+            $view = view('dashboard.account.password')->render();
+            return response()->json([
+                'status'=>false,
+                'view'=>$view,
+                'error'=>'Your password is wrong'
+            ]);
         }
     }
 }

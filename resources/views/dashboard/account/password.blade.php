@@ -5,11 +5,7 @@
             <label for="old_password" class="col-md-5 p-2">Old Password</label>
             <div class="col-md-7 p-0">
                 <input type="password" class="form-control text-center" id="old_password" name="old_password" required>
-                @if(Session::has('error'))
-                    <span class="invalid-feedback d-block" role="alert">
-                        <strong>{{ Session::get('error') }}</strong>
-                    </span>
-                @endif
+                <span class="invalid-feedback d-block font-weight-bold" id="old_password_error" style="display:none" role="alert"></span>
             </div>
         </div>
         <div class="form-group d-flex flex-row col-md-8 m-auto">

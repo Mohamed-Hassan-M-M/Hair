@@ -16,7 +16,7 @@ class ApiUserAuthController extends Controller
     {
         //validation
         $rules = [
-            'password'=>['confirmed'],
+            'password'=>['confirmed','string'],
             'user_name'=>['string','unique:users,user_name,'. Auth::user()->id],
             'email'=>['email','unique:users,email,'.Auth::user()->id]
         ];
@@ -49,7 +49,7 @@ class ApiUserAuthController extends Controller
             //validation
             $rules = [
                 "email" => ["required","email"],
-                "password" => "required"
+                "password" => ["required","string"]
             ];
             $validator = Validator::make($request->all(), $rules);
             if ($validator->fails()) {
@@ -71,7 +71,7 @@ class ApiUserAuthController extends Controller
             }
             //return user info with his token
             $user = Auth::guard('api')->user();
-            $user ->api_token = $token;
+            $user ->token = $token;
             return response()->json([
                 'status' => true,
                 'msg' => 'login successfully',
@@ -89,30 +89,11 @@ class ApiUserAuthController extends Controller
 
     public function logout(Request $request)
     {
-        $token = $request -> header('auth-token');
-        if($token){
-            try {
-
-                JWTAuth::setToken($token)->invalidate(); //logout
-            }catch (\Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
-                return response()->json([
-                    'status' => false,
-                    'msg' => 'some thing went wrong',
-                    'data' => $e->getMessage()
-                ]);
-            }
-            return response()->json([
-                'status' => true,
-                'msg' => 'logout successfully',
-                'data' => 'logout successfully'
-            ]);
-        }else{
-            return response()->json([
-                'status' => false,
-                'msg' => 'some thing went wrong',
-                'data' => 'some thing went wrong'
-            ]);
-        }
-
+        auth('api')->logout();
+        return response()->json([
+            'status' => true,
+            'msg' => 'logout successfully',
+            'data' => 'logout successfully'
+        ]);
     }
 }
