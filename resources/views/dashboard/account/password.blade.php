@@ -1,10 +1,10 @@
-<form class="form" action="{{route('admin.account.password.reset')}}" method="POST">
+<form class="form" id="passwordform" action="{{route('admin.account.password.reset')}}" method="POST">
     @csrf
     <div class="row d-flex">
         <div class="form-group d-flex flex-row col-md-8 m-auto">
             <label for="old_password" class="col-md-5 p-2">Old Password</label>
             <div class="col-md-7 p-0">
-                <input type="password" class="form-control text-center @if(Session::has('error')) is-invalid @endif " id="old_password" name="old_password" required>
+                <input type="password" class="form-control text-center" id="old_password" name="old_password" required>
                 @if(Session::has('error'))
                     <span class="invalid-feedback d-block" role="alert">
                         <strong>{{ Session::get('error') }}</strong>
@@ -15,12 +15,8 @@
         <div class="form-group d-flex flex-row col-md-8 m-auto">
             <label for="new_password" class="col-md-5 p-2">New Password</label>
             <div class="col-md-7 p-0">
-                <input type="password" class="form-control text-center @error('password') is-invalid @enderror " id="new_password" name="password" required>
-                @error('password')
-                <span class="invalid-feedback d-block" role="alert">
-                    <strong>{{$message}}</strong>
-                </span>
-                @enderror
+                <input type="password" class="form-control text-center" id="new_password" name="password" required>
+                <span class="invalid-feedback d-block font-weight-bold" id="password_error" style="display:none" role="alert"></span>
             </div>
         </div>
         <div class="form-group d-flex flex-row col-md-8 m-auto">
