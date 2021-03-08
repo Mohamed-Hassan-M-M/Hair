@@ -22,11 +22,12 @@ Route::group(['middleware' => ['api','checkPassword'], 'namespace' => 'Api'], fu
     Route::post('login','ApiUserAuthController@login');
     Route::post('register','ApiUserAuthController@register');
 
-    Route::group(['prefix' => 'user' ,'middleware' => ['auth_api:api']],function (){
+    Route::group(['prefix' => 'user' ,'middleware' => ['auth_api:api','role:user']],function (){
         Route::post('logout','ApiUserAuthController@logout');
-        Route::post('profile',function(){
-            return 'Only authenticated user can reach me';
-        }) ;
-        Route::post('saveHistories','') ;
+        Route::post('profile','ApiAccountController@');
+        Route::post('save_histories','ApiAccountController@saveHistories');
+        Route::post('show_histories','ApiAccountController@showHistories');
+        Route::post('show_profile','ApiAccountController@showProfile');
+        Route::post('update_profile','ApiAccountController@updateProfile');
     });
 });

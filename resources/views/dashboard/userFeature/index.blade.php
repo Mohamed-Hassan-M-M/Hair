@@ -47,11 +47,11 @@
                                         @foreach($activities as $activitie)
                                     <tr>
                                         <td class="align-middle">{{$activitie->User->user_name}}</td>
-                                        <td class="align-middle">{{$activitie->Face->shape_name}}</td>
-                                        <td class="align-middle">{{$activitie->Skin->skin_tone_name}}</td>
-                                        <td class="align-middle">{{$activitie->Length->hair_length_name}}</td>
-                                        <td class="align-middle">{{$activitie->Style->hair_style_name}}</td>
-                                        <td class="align-middle"><div class="m-auto" style="background-color: {{$activitie->colour_hash}}; width: 100px;height: 100px; border-radius: 30%"></div></td>
+                                        <td class="align-middle"> @if($activitie->face_shape_id) {{$activitie->Face->shape_name}} @endif </td>
+                                        <td class="align-middle"> @if($activitie->skin_tone_id ) {{$activitie->Skin->skin_tone_name}} @endif </td>
+                                        <td class="align-middle"> @if($activitie->hair_length_id ) {{$activitie->Length->hair_length_name}} @endif </td>
+                                        <td class="align-middle"> @if($activitie->hair_style_id ) {{$activitie->Style->hair_style_name}} @endif </td>
+                                        <td class="align-middle"> @if($activitie->hair_color_id  ) <div class="m-auto" style="background-color: {{$activitie->Color->colour_hash}}; width: 100px;height: 100px; border-radius: 30%"></div> @endif </td>
                                         <td class="align-middle"><img src="{{asset('dashboard/images/'. $activitie->uploaded_image)}}" class="rounded mx-auto d-block" style="width: 100px;height: 100px;" alt="..."></td>
                                         <td class="align-middle"><img src="{{asset('dashboard/images/'. $activitie->saved_image)}}" class="rounded mx-auto d-block" style="width: 100px;height: 100px;" alt="..."></td>
                                     </tr>

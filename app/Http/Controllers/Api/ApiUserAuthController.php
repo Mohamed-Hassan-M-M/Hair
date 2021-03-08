@@ -17,15 +17,15 @@ class ApiUserAuthController extends Controller
         //validation
         $rules = [
             'password'=>['confirmed','string'],
-            'user_name'=>['string','unique:users,user_name,'. Auth::user()->id],
-            'email'=>['email','unique:users,email,'.Auth::user()->id]
+            'user_name'=>['string','unique:users,user_name'],
+            'email'=>['email','unique:users,email']
         ];
         $validator = Validator::make($request->all(), $rules);
         if ($validator->fails()) {
             return response()->json([
                 'status' => false,
                 'msg' => 'validation error.',
-                'data' => $validator->errors()->first()
+                'data' => $validator->errors()
             ]);
         }
         //save info
@@ -36,6 +36,7 @@ class ApiUserAuthController extends Controller
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->save();
+        $user->assignRole( 'user');
         return response()->json([
             'status' => true,
             'msg' => 'register successfully',
