@@ -28,7 +28,7 @@
             <input type="password" class="form-control col-md-7 text-center" id="password_confirmation" name="password_confirmation" required>
         </div>
         <div class="form-group col-md-8 m-auto text-center pt-3">
-            <button type="submit" class="btn b btn-primary col-md-3">Change</button>
+            <button id="updatePassword" type="submit" class="btn b btn-primary col-md-3">Change</button>
         </div>
     </div>
 </form>

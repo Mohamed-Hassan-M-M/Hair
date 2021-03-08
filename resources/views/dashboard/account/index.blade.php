@@ -83,6 +83,33 @@
                     }
                 })
             });
+            $(document).on('click','#updateProfile',function (e){
+                e.preventDefault();
+                var form = $('#updateform')[0];
+                var dataform = new FormData(form);
+                $.ajax({
+                    type:'post',
+                    url:'{{route('admin.account.doEditProfile')}}',
+                    data:dataform,
+                    processData: false,
+                    contentType: false,
+                    success:function (data){
+                        if(data.status === true)
+                        {
+                            $("#user_name_error").hide();
+                            $("#email_error").hide();
+                            $('#content').html('');
+                            $('#content').html(data.view);
+                        }
+                    },
+                    error:function (reject){
+                        var response = $.parseJSON(reject.responseText);
+                        $.each(response.errors, function(key, val){
+                            $("#" + key + "_error").show();
+                            $("#" + key + "_error").text(val[0]);
+                        });
+                    }
+                })
             $(document).on('click','#password',function (e){
                 e.preventDefault();
                 $.ajax({
@@ -100,7 +127,7 @@
                     }
                 })
             });
-            $(document).on('click','#updateProfile',function (e){
+            $(document).on('click','#updatePassword',function (e){
                 e.preventDefault();
                 var form = $('#updateform')[0];
                 var dataform = new FormData(form);

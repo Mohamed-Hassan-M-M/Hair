@@ -25,9 +25,9 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'password' =>['confirmed','nullable'],
-            'user_name'=>['nullable','string','unique:users,user_name,'.Auth::user()->id],
-            'email'    =>['nullable','email','unique:users,email,'.Auth::user()->id]
+            'password' =>['confirmed'],
+            'user_name'=>['string','unique:users,user_name,'.Auth::user()->id],
+            'email'    =>['email','unique:users,email,'.Auth::user()->id]
         ];
     }
     public function messages()
