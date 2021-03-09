@@ -40,30 +40,28 @@
                                     @csrf
                                     <input type="hidden" value="{{$hairStyle->id}}" name="id">
                                     <div class="card-body">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="hair_style_name">Hair Style name</label>
-                                                <input type="text" class="form-control @error('hair_style_name') is-invalid @enderror " value="{{old('hair_style_name',$hairStyle->hair_style_name)}}" id="hair_style_name" placeholder="Enter hair style name" name="hair_style_name">
-                                                @error('hair_style_name')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="link_url">Sample image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
-                                                        <label class="custom-file-label" for="link_url"></label>
-                                                    </div>
+                                        <div class="form-group">
+                                            <label for="hair_style_name">Hair Style name</label>
+                                            <input type="text" class="form-control @error('hair_style_name') is-invalid @enderror " value="{{old('hair_style_name',$hairStyle->hair_style_name)}}" id="hair_style_name" placeholder="Enter hair style name" name="hair_style_name" required>
+                                            @error('hair_style_name')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="link_url">Sample image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
+                                                    <label class="custom-file-label" for="link_url"></label>
                                                 </div>
-                                                @error('link_url')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
                                             </div>
+                                            @error('link_url')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

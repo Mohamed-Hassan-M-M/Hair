@@ -40,30 +40,28 @@
                                     @csrf
                                     <input type="hidden" value="{{$faceShape->id}}" name="id">
                                     <div class="card-body">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="shape_name">Face Shape name</label>
-                                                <input type="text" class="form-control @error('shape_name') is-invalid @enderror " value="{{old('shape_name',$faceShape->shape_name)}}" id="shape_name" placeholder="Enter face shape name" name="shape_name">
-                                                @error('shape_name')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="link_url">Sample image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
-                                                        <label class="custom-file-label" for="link_url"></label>
-                                                    </div>
+                                        <div class="form-group">
+                                            <label for="shape_name">Face Shape name</label>
+                                            <input type="text" class="form-control @error('shape_name') is-invalid @enderror " value="{{old('shape_name',$faceShape->shape_name)}}" id="shape_name" placeholder="Enter face shape name" name="shape_name" required>
+                                            @error('shape_name')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="link_url">Sample image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
+                                                    <label class="custom-file-label" for="link_url"></label>
                                                 </div>
-                                                @error('link_url')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
                                             </div>
+                                            @error('link_url')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

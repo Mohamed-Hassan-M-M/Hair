@@ -40,34 +40,32 @@
                                     @csrf
                                     <input type="hidden" value="{{$color->id}}" name="id">
                                     <div class="card-body">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="colour_name">Color name</label>
-                                                <input type="text" class="form-control @error('colour_name') is-invalid @enderror " value="{{old('colour_name',$color->colour_name)}}" id="colour_name" placeholder="Enter colour name" name="colour_name">
-                                                @error('colour_name')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="colour_hash">Color</label>
-                                                <input type="color" class="form-control" id="colour_hash" value="{{old('colour_hash',$color->colour_hash)}}" placeholder="Enter name" name="colour_hash">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="link_url">Sample image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
-                                                        <label class="custom-file-label" for="link_url"></label>
-                                                    </div>
+                                        <div class="form-group">
+                                            <label for="colour_name">Color name</label>
+                                            <input type="text" class="form-control @error('colour_name') is-invalid @enderror " value="{{old('colour_name',$color->colour_name)}}" id="colour_name" placeholder="Enter colour name" name="colour_name" required>
+                                            @error('colour_name')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="colour_hash">Color</label>
+                                            <input type="color" class="form-control" id="colour_hash" value="{{old('colour_hash',$color->colour_hash)}}" placeholder="Enter name" name="colour_hash" required>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="link_url">Sample image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
+                                                    <label class="custom-file-label" for="link_url"></label>
                                                 </div>
-                                                @error('link_url')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
                                             </div>
+                                            @error('link_url')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

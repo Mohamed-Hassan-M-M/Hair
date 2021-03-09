@@ -95,6 +95,12 @@ return [
             'url' => env('APP_URL').'/public',
             'visibility' => 'public',
         ],
+        'products' => [
+            'driver' => 'local',
+            'root' => base_path() . '/public/dashboard/images/products',
+            'url' => env('APP_URL').'/public',
+            'visibility' => 'public',
+        ],
 
         's3' => [
             'driver' => 's3',

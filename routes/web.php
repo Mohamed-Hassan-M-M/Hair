@@ -13,13 +13,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');*/
 date_default_timezone_set("Africa/Cairo");
 Route::group(['prefix'=>'dashboard', 'namespace'=>'Dashboard'], function () {
 
@@ -31,6 +24,7 @@ Route::group(['prefix'=>'dashboard', 'namespace'=>'Dashboard'], function () {
     });
 
     Route::group(['middleware' => ['auth','role:admin']], function () {
+        //data routes
         Route::get('/home', 'DashboardController@index')->name('dashboard');
         Route::get('/logout', 'Auth\LoginController@logout')->name('admin.logout');
         Route::resource('user', 'UserController');
@@ -41,18 +35,31 @@ Route::group(['prefix'=>'dashboard', 'namespace'=>'Dashboard'], function () {
         Route::resource('skin_tone', 'SkinToneController');
         Route::resource('user_feature', 'UserFeatureController');
         Route::resource('combination_feature', 'CombinationFeatureController');
+        Route::resource('category', 'CategoryController');
+        Route::resource('product', 'ProductController');
+
         Route::group(['prefix'=>'account'],function (){
+            //admin account routes
             Route::get('/','AdminController@index')->name('admin.account');
             Route::get('/overview','AdminController@overview')->name('admin.account.overview');
             Route::get('/editProfile','AdminController@editProfile')->name('admin.account.editProfile');
             Route::post('/editProfile','AdminController@updateProfile')->name('admin.account.doEditProfile');
             Route::get('/password','AdminController@password')->name('admin.account.password');
             Route::post('/password','AdminController@resetPassword')->name('admin.account.password.reset');
+
         });
+
     });
 
 });
+
 /***************************************************************************/
 /***************************************************************************/
 /***************************************************************************/
 
+Route::group(['namespace'=>'Website'],function (){
+
+    Route::get('/', 'WebsiteController@index')->name('website');
+    Route::get('/service', 'ServiceController@index')->name('service');
+
+});

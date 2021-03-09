@@ -40,44 +40,42 @@
                                     @csrf
                                     <input type="hidden" value="{{$skinTone->id}}" name="id">
                                     <div class="card-body">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label for="skin_tone_name">Skin Tone name</label>
-                                                <input type="text" class="form-control @error('skin_tone_name') is-invalid @enderror " value="{{old('skin_tone_name',$skinTone->skin_tone_name)}}" id="skin_tone_name" placeholder="Enter skin tone name" name="skin_tone_name">
-                                                @error('skin_tone_name')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="skin_tone_colour_id">Color</label>
-                                                <select class="form-control @error('skin_tone_colour_id') is-invalid @enderror " id="skin_tone_colour_id" name="skin_tone_colour_id">
-                                                    <option value="">Choose Color</option>
-                                                    @foreach($colors as $color)
-                                                        <option value="{{$color->id}}" style="color: {{$color->colour_hash}}; font-weight: bolder" @if($skinTone->skin_tone_colour_id == $color->id) selected @endif >{{$color->colour_name}}</option>
-                                                    @endforeach
-                                                </select>
-                                                @error('skin_tone_colour_id')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="link_url">Sample image</label>
-                                                <div class="input-group">
-                                                    <div class="custom-file">
-                                                        <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
-                                                        <label class="custom-file-label" for="link_url"></label>
-                                                    </div>
+                                        <div class="form-group">
+                                            <label for="skin_tone_name">Skin Tone name</label>
+                                            <input type="text" class="form-control @error('skin_tone_name') is-invalid @enderror " value="{{old('skin_tone_name',$skinTone->skin_tone_name)}}" id="skin_tone_name" placeholder="Enter skin tone name" name="skin_tone_name" required>
+                                            @error('skin_tone_name')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="skin_tone_colour_id">Color</label>
+                                            <select class="form-control @error('skin_tone_colour_id') is-invalid @enderror " id="skin_tone_colour_id" name="skin_tone_colour_id" required>
+                                                <option value="">Choose Color</option>
+                                                @foreach($colors as $color)
+                                                    <option value="{{$color->id}}" style="color: {{$color->colour_hash}}; font-weight: bolder" @if($skinTone->skin_tone_colour_id == $color->id) selected @endif >{{$color->colour_name}}</option>
+                                                @endforeach
+                                            </select>
+                                            @error('skin_tone_colour_id')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="link_url">Sample image</label>
+                                            <div class="input-group">
+                                                <div class="custom-file">
+                                                    <input type="file" class="custom-file-input @error('link_url') is-invalid @enderror " id="link_url" name="link_url">
+                                                    <label class="custom-file-label" for="link_url"></label>
                                                 </div>
-                                                @error('link_url')
-                                                <span class="invalid-feedback d-block" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                                @enderror
                                             </div>
+                                            @error('link_url')
+                                            <span class="invalid-feedback d-block" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
                                     <!-- /.card-body -->

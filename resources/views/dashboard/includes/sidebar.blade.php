@@ -26,11 +26,20 @@
                 <!-- Add icons to the links using the .nav-icon class
                      with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="{{route('user.index')}}" class="nav-link">
-                        <i class="nav-icon fas fa-user-alt"></i>
+                    <a href="{{route('category.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
                         <p>
-                            Users
-                            <span class="badge badge-info right">{{((\App\Models\User::with('roles')->get())->reject(function ($query) {return $query->hasRole('admin');}))->count()}}</span>
+                            Categories
+                            <span class="badge badge-info right">{{\App\Models\Category::count()}}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('product.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Products
+                            <span class="badge badge-info right">{{\App\Models\Product::count()}}</span>
                         </p>
                     </a>
                 </li>
@@ -85,6 +94,15 @@
                         <p>
                             Combination Feature
                             <span class="badge badge-info right">{{\App\Models\Combination_feature::count()}}</span>
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('user.index')}}" class="nav-link">
+                        <i class="nav-icon fas fa-user-alt"></i>
+                        <p>
+                            Users
+                            <span class="badge badge-info right">{{((\App\Models\User::with('roles')->get())->reject(function ($query) {return $query->hasRole('admin');}))->count()}}</span>
                         </p>
                     </a>
                 </li>
