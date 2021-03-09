@@ -58,7 +58,7 @@
                                             <select class="form-control @error('face_shape_id') is-invalid @enderror " id="face_shape_id" name="face_shape_id">
                                                 <option value="">Choose Face shape</option>
                                                 @foreach($faceShapes as $faceShape)
-                                                    <option value="{{$faceShape->id}}" @if($skinTone->id == $combination->face_shape_id) selected @endif >{{$faceShape->shape_name}}</option>
+                                                    <option value="{{$faceShape->id}}" @if($faceShape->id == $combination->face_shape_id) selected @endif >{{$faceShape->shape_name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('face_shape_id')
@@ -72,7 +72,7 @@
                                             <select class="form-control @error('hair_length_id') is-invalid @enderror " id="hair_length_id" name="hair_length_id">
                                                 <option value="">Choose Hair length</option>
                                                 @foreach($hairLengths as $hairLength)
-                                                    <option value="{{$hairLength->id}}" @if($skinTone->id == $combination->hair_length_id) selected @endif >{{$hairLength->hair_length_name}}</option>
+                                                    <option value="{{$hairLength->id}}" @if($hairLength->id == $combination->hair_length_id) selected @endif >{{$hairLength->hair_length_name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('hair_length_id')
@@ -86,7 +86,7 @@
                                             <select class="form-control @error('hair_style_id') is-invalid @enderror " id="hair_style_id" name="hair_style_id">
                                                 <option value="">Choose Hair style</option>
                                                 @foreach($hairStyles as $hairStyle)
-                                                    <option value="{{$hairStyle->id}}" @if($skinTone->id == $combination->hair_style_id) selected @endif >{{$hairStyle->hair_style_name}}</option>
+                                                    <option value="{{$hairStyle->id}}" @if($hairStyle->id == $combination->hair_style_id) selected @endif >{{$hairStyle->hair_style_name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('hair_style_id')
@@ -100,7 +100,7 @@
                                             <select class="form-control @error('hair_color_id') is-invalid @enderror " id="hair_color_id" name="hair_color_id">
                                                 <option value="">Choose Color</option>
                                                 @foreach($colors as $color)
-                                                    <option value="{{$color->id}}" @if($skinTone->id == $combination->hair_color_id) selected @endif style="color: {{$color->colour_hash}}; font-weight: bolder">{{$color->colour_name}}</option>
+                                                    <option value="{{$color->id}}" @if($color->id == $combination->hair_color_id) selected @endif style="color: {{$color->colour_hash}}; font-weight: bolder">{{$color->colour_name}}</option>
                                                 @endforeach
                                             </select>
                                             @error('hair_color_id')

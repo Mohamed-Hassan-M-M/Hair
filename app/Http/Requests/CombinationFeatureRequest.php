@@ -25,11 +25,11 @@ class CombinationFeatureRequest extends FormRequest
     public function rules()
     {
         return [
-            'face_shape_id'=>['exists:face_shapes,id'],
-            'skin_tone_id'=>['exists:skin_tones,id'],
-            'hair_style_id'=>['exists:hair_styles,id'],
-            'hair_length_id'=>['exists:hair_lengths,id'],
-            'hair_color_id'=>['exists:colours,id'],
+            'face_shape_id'=>['nullable','exists:face_shapes,id'],
+            'skin_tone_id'=>['nullable','exists:skin_tones,id'],
+            'hair_style_id'=>['nullable','exists:hair_styles,id'],
+            'hair_length_id'=>['nullable','exists:hair_lengths,id'],
+            'hair_color_id'=>['nullable','exists:colours,id'],
             'link_url'=>['image'],
         ];
     }

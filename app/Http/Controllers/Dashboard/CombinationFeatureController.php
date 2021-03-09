@@ -114,21 +114,34 @@ class CombinationFeatureController extends Controller
     public function update(CombinationFeatureRequest $request, $id)
     {
         try{
-            $skinTone = Skin_tone::find($id);
-            if(!$skinTone){
-                return redirect()->route('skin_tone.index')->with(['error'=>'This skin tone does not exist']);
+            $combination = Combination_feature::find($id);
+            if(!$combination){
+                return redirect()->route('combination_feature.index')->with(['error'=>'This feature does not exist']);
             }
-            $skinTone->skin_tone_name = $request->skin_tone_name;
-            $skinTone->skin_tone_colour_id = $request->skin_tone_colour_id;
+            if($request->has('face_shape_id')) {
+                $combination->face_shape_id = $request->face_shape_id;
+            }
+            if($request->has('skin_tone_id')) {
+                $combination->skin_tone_id = $request->skin_tone_id;
+            }
+            if($request->has('hair_style_id')) {
+                $combination->hair_style_id = $request->hair_style_id;
+            }
+            if($request->has('hair_length_id')) {
+                $combination->hair_length_id = $request->hair_length_id;
+            }
+            if($request->has('hair_color_id')) {
+                $combination->hair_color_id = $request->hair_color_id;
+            }
             if($request->has('link_url')){
-                $oldimage = $skinTone->link_url;
-                $skinTone->link_url = saveImage('skinTones',$request->link_url);
+                $oldimage = $combination->link_url;
+                $combination->link_url = saveImage('combinationFeatures',$request->link_url);
                 unlink(base_path('/public/dashboard/images/' . $oldimage));
             }
-            $skinTone->save();
-            return redirect()->route('skin_tone.index')->with(['success'=>'This skin tone updated successfully']);
+            $combination->save();
+            return redirect()->route('combination_feature.index')->with(['success'=>'This feature updated successfully']);
         }catch (\Exception $ex){
-            return redirect()->route('skin_tone.index')->with(['error'=>'Error, Try again later']);
+            return redirect()->route('combination_feature.index')->with(['error'=>'Error, Try again later']);
         }
     }
 
@@ -141,16 +154,16 @@ class CombinationFeatureController extends Controller
     public function destroy($id)
     {
         try{
-            $skinTone = Skin_tone::find($id);
-            if(!$skinTone){
-                return redirect()->route('skin_tone.index')->with(['error'=>'This skin tone does not exist']);
+            $combination = Combination_feature::find($id);
+            if(!$combination){
+                return redirect()->route('combination_feature.index')->with(['error'=>'This feature does not exist']);
             }
-            $oldimage = $skinTone->link_url;
-            $skinTone->delete();
+            $oldimage = $combination->link_url;
+            $combination->delete();
             unlink(base_path('/public/dashboard/images/' . $oldimage));
-            return redirect()->route('skin_tone.index')->with(['success'=>'This skin tone deleted successfully']);
+            return redirect()->route('combination_feature.index')->with(['success'=>'This feature deleted successfully']);
         }catch (\Exception $ex){
-            return redirect()->route('skin_tone.index')->with(['error'=>'Error, Try again later']);
+            return redirect()->route('combination_feature.index')->with(['error'=>'Error, Try again later']);
         }
     }
 }
