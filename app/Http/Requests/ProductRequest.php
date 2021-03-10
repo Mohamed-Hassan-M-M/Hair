@@ -26,16 +26,15 @@ class ProductRequest extends FormRequest
         return [
             'product_name'=>['string','unique:products,product_name,'.$this->id],
             'category_id'=>['exists:categories,id'],
-            'before'=>['image'],
-            'product'=>['image'],
-            'after'=>['image']
+            'productimage.*'=>['image'],
+            'after.*'=>['image']
         ];
     }
     public function messages()
     {
         return [
             'unique' => 'The :attribute has already been taken.',
-            'image' => 'The :attribute must be an image.',
+            'image' => 'This field must be an image.',
             'string' => 'The :attribute must be a string.',
         ];
     }

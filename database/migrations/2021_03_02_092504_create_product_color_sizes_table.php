@@ -17,6 +17,7 @@ class CreateProductColorSizesTable extends Migration
             $table->id();
             $table->string('product_size_name',128);
             $table->unsignedBigInteger('product_color_id');
+            $table->integer('count');
             $table->timestamps();
         });
     }

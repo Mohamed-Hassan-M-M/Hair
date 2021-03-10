@@ -39,9 +39,6 @@
                                     <tr>
                                         <th>Product Name</th>
                                         <th>Category</th>
-                                        <th>Before</th>
-                                        <th>Product Image</th>
-                                        <th>After</th>
                                         <th>Controllers</th>
                                     </tr>
                                     </thead>
@@ -51,9 +48,6 @@
                                     <tr>
                                         <td class="align-middle">{{$product->product_name}}</td>
                                         <td class="align-middle">{{$product->Category->category_name}}</td>
-                                        <td class="align-middle"><img src="{{asset('dashboard/images/'. $product->before)}}" class="rounded mx-auto d-block" style="width: 100px;height: 100px;" alt="..."></td>
-                                        <td class="align-middle"><img src="{{asset('dashboard/images/'. $product->product)}}" class="rounded mx-auto d-block" style="width: 100px;height: 100px;" alt="..."></td>
-                                        <td class="align-middle"><img src="{{asset('dashboard/images/'. $product->after)}}" class="rounded mx-auto d-block" style="width: 100px;height: 100px;" alt="..."></td>
                                         <td class="align-middle">
                                             <a href="{{route('product.edit',$product->id)}}"><i class="fas fa-edit"></i></a>
                                             <a href="" class="delete text-danger ml-3"><i class="fas fa-trash"></i></a>

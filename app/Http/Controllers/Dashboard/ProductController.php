@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Product_color;
+use App\Models\Product_color_size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -40,16 +43,47 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        $size = [];
+        foreach ((array)$request->size as $var => $val) {
+            $size[] =  $val;
+        }
+        $count = [];
+        foreach ((array)$request->count as $var => $val) {
+            $count[] =  $val;
+        }
         try{
-            $product = new Product();
-            $product->product_name = $request->product_name;
-            $product->category_id = $request->category_id;
-            $product->before = saveImage('products',$request->before);
-            $product->product = saveImage('products',$request->product);
-            $product->after = saveImage('products',$request->after);
-            $product->save();
+            DB::beginTransaction();
+            //save product
+            $productID = Product::insertGetId([
+                'product_name' => $request->product_name,
+                'category_id'  => $request->category_id
+            ]);
+            //save color
+            $countColor = count($request->colour_name);
+            for ($i=0; $i<$countColor; $i++)
+            {
+                $color_ID = Product_color::insertGetId([
+                    'product'           => saveImage('products',$request->productimage[$i]),
+                    'after'             => saveImage('products',$request->after[$i]),
+                    'product_color_name'=> $request->colour_name[$i],
+                    'product_color_hash'=> $request->colour_hash[$i],
+                    'product_id'        => $productID,
+                ]);
+                //save size
+                $countSize = count($size[$i]);
+                for($l=0; $l<$countSize; $l++)
+                {
+                    $productColorSize = new Product_color_size();
+                    $productColorSize->product_size_name = $size[$i][$l];
+                    $productColorSize->count = $count[$i][$l];
+                    $productColorSize->product_color_id = $color_ID;
+                    $productColorSize->save();
+                }
+            }
+            DB::commit();
             return redirect()->route('product.index')->with(['success'=>'This product created successfully']);
         }catch (\Exception $ex){
+            DB::rollBack();
             return redirect()->route('product.index')->with(['error'=>'Error, Try again later']);
         }
     }
@@ -90,33 +124,83 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        try{
-            $product = Product::find($id);
-            if(!$product){
-                return redirect()->route('product.index')->with(['error'=>'This product does not exist']);
+        //delete the old product first
+        $pro = Product::find($id);
+        foreach ($pro->Color as $col)
+        {
+            foreach ($col->Size as $siz)
+            {
+                $siz->delete();
             }
-            $product->product_name = $request->product_name;
-            $product->category_id = $request->category_id;
-            if($request->has('before')){
-                $oldimage = $product->before;
-                $product->before = saveImage('products',$request->before);
-                unlink(base_path('/public/dashboard/images/' . $oldimage));
-            }
-            if($request->has('product')){
-                $oldimage = $product->product;
-                $product->product = saveImage('products',$request->product);
-                unlink(base_path('/public/dashboard/images/' . $oldimage));
-            }
-            if($request->has('after')){
-                $oldimage = $product->after;
-                $product->after = saveImage('products',$request->after);
-                unlink(base_path('/public/dashboard/images/' . $oldimage));
-            }
-            $product->save();
-            return redirect()->route('product.index')->with(['success'=>'This product updated successfully']);
-        }catch (\Exception $ex){
-            return redirect()->route('product.index')->with(['error'=>'Error, Try again later']);
+            $col->delete();
         }
+        $pro->delete();
+
+        $size = [];
+        foreach ((array)$request->size as $var => $val) {
+            $size[] =  $val;
+        }
+        $count = [];
+        foreach ((array)$request->count as $var => $val) {
+            $count[] =  $val;
+        }
+        $colorImageProduct = '';
+        $colorImageAfter = '';
+        //try{
+            DB::beginTransaction();
+            //save product
+            $productID = Product::insertGetId([
+                'product_name' => $request->product_name,
+                'category_id'  => $request->category_id
+            ]);
+            //save color
+            $countColor = count($request->colour_name);
+            for ($i=0; $i<$countColor; $i++)
+            {
+                if(isset($request->productimage[$i])){
+                    $colorImageProduct = saveImage('products',$request->productimage[$i]);
+                    if(isset($request->producthidden[$i]))
+                    {
+                        unlink(base_path('/public/dashboard/images/' . $request->producthidden[$i]));
+                    }
+
+                }else{
+                    $colorImageProduct = $request->producthidden[$i];
+                }
+                if(isset($request->after[$i])){
+                    $colorImageAfter = saveImage('products',$request->after[$i]);
+
+                    if(isset($request->afterhidden[$i]))
+                    {
+                        unlink(base_path('/public/dashboard/images/' . $request->afterhidden[$i]));
+                    }
+                }else{
+                    $colorImageAfter = $request->afterhidden[$i];
+                }
+                $color_ID = Product_color::insertGetId([
+                    'product'           => $colorImageProduct,
+                    'after'             => $colorImageAfter,
+                    'product_color_name'=> $request->colour_name[$i],
+                    'product_color_hash'=> $request->colour_hash[$i],
+                    'product_id'        => $productID,
+                ]);
+                //save size
+                $countSize = count($size[$i]);
+                for($l=0; $l<$countSize; $l++)
+                {
+                    $productColorSize = new Product_color_size();
+                    $productColorSize->product_size_name = $size[$i][$l];
+                    $productColorSize->count = $count[$i][$l];
+                    $productColorSize->product_color_id = $color_ID;
+                    $productColorSize->save();
+                }
+            }
+            DB::commit();
+            return redirect()->route('product.index')->with(['success'=>'This product updated successfully']);
+        //}catch (\Exception $ex){
+            DB::rollBack();
+            return redirect()->route('product.index')->with(['error'=>'Error, Try again later']);
+        //}
     }
 
     /**
@@ -128,19 +212,26 @@ class ProductController extends Controller
     public function destroy($id)
     {
         try{
+            DB::beginTransaction();
             $product = Product::find($id);
             if(!$product){
                 return redirect()->route('product.index')->with(['error'=>'This product does not exist']);
             }
-            $oldimagebefore = $product->before;
-            $oldimageproduct = $product->product;
-            $oldimageafter = $product->after;
+            foreach ($product->Color as $col)
+            {
+                foreach ($col->Size as $siz)
+                {
+                    $siz->delete();
+                }
+                unlink(base_path('/public/dashboard/images/' . $col->product));
+                unlink(base_path('/public/dashboard/images/' . $col->after));
+                $col->delete();
+            }
             $product->delete();
-            unlink(base_path('/public/dashboard/images/' . $oldimagebefore));
-            unlink(base_path('/public/dashboard/images/' . $oldimageproduct));
-            unlink(base_path('/public/dashboard/images/' . $oldimageafter));
+            DB::commit();
             return redirect()->route('product.index')->with(['success'=>'This product deleted successfully']);
         }catch (\Exception $ex){
+            DB::rollBack();
             return redirect()->route('product.index')->with(['error'=>'Error, Try again later']);
         }
     }
