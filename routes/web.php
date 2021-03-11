@@ -65,16 +65,15 @@ Route::group(['namespace'=>'Website'],function (){
     Route::get('/', 'WebsiteController@index')->name('website');
     Route::get('/service', 'ServiceController@index')->name('service');
     Route::get('/clothes', 'ServiceController@clothesAll')->name('clothes.all');
+    Route::get('/clothes/{id}', 'ServiceController@clothesCategory')->name('clothes.cat');
+
+
+    //test barcode
     Route::get('/barcode',function (){
         $ddd = new DNS1D();
         echo $ddd->getBarcodeHTML('4445645656', 'I25','1.4','50');echo '</br>';
         echo  '<div style="width: 200px;margin: auto">';
         echo  $ddd->getBarcodeSVG('4445645656', 'C39+',1,50);
-        echo '</div>';
-        echo '</br>';
-        echo '</br>';
-        echo '</br>';
-        echo '</br>';
         echo  '<div style="width: 200px;margin: auto">';
         echo '<img src="data:image/png;base64,' . $ddd->getBarcodePNG('4445645656', 'C39+',1,50) . '" alt="barcode"   />';
         echo '</div>';

@@ -13,7 +13,7 @@
                             </div>
                             <div class="p-3 p-lg-4 site-block-feature-7 card-body">
                                 @foreach($categories as $category)
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>{{$category->category_name}}</u></a>
+                                <a href="{{route('clothes.cat',$category->id)}}" class="d-block mb-2 text-uppercase font-weight-bold size-32" @if($categories_choose != null && $categories_choose->id == $category->id) style="color: #908b51" @endif ><u>{{$category->category_name}}</u></a>
                                 @endforeach
                             </div>
                         </div>

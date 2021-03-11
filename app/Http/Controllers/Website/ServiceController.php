@@ -26,6 +26,16 @@ class ServiceController extends Controller
     {
         $categories = Category::get();
         $products = Product::get();
-        return view('website.clothes',compact(['products','categories']));
+        $categories_choose = null;
+        return view('website.clothes',compact(['products','categories','categories_choose']));
     }
+
+    public function clothesCategory($cat_id)
+    {
+        $categories = Category::get();
+        $categories_choose = Category::find($cat_id);
+        $products = $categories_choose->Product;
+        return view('website.clothes',compact(['products','categories','categories_choose']));
+    }
+
 }
