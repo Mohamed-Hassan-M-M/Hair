@@ -17,7 +17,8 @@ class CreateProductColorsTable extends Migration
             $table->id();
             $table->string('product_color_name',128);
             $table->string('product_color_hash',128);
-            $table->string('product',255);//image
+            $table->string('product_barcode',20);
+            $table->string('productimage',255);//image
             $table->string('after',255);//image
             $table->unsignedBigInteger('product_id');
             $table->timestamps();

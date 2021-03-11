@@ -23,12 +23,22 @@ class ProductRequest extends FormRequest
      */
     public function rules()
     {
-        return [
-            'product_name'=>['string','unique:products,product_name,'.$this->id],
-            'category_id'=>['exists:categories,id'],
-            'productimage.*'=>['image'],
-            'after.*'=>['image']
-        ];
+        $rules = [];
+        $rules['product_name'] = ['string','unique:products,product_name,'.$this->id];
+        $rules['category_id'] = ['exists:categories,id'];
+        $rules['productimage.*'] = ['image'];
+        $rules['after.*'] = ['image'];
+        if($this->isMethod('PUT'))
+        {
+            foreach ($this->idcolor as $index => $value) {
+                $rules['product_barcode.'.$index] = ['numeric','unique:product_colors,product_barcode,'.$value];
+            }
+        }
+        else
+        {
+            $rules['product_barcode.*'] = ['numeric','unique:product_colors,product_barcode'];
+        }
+        return $rules;
     }
     public function messages()
     {

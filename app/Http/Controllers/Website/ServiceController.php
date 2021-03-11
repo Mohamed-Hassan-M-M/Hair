@@ -7,6 +7,7 @@ use App\Models\Colour;
 use App\Models\Face_shape;
 use App\Models\Hair_length;
 use App\Models\Hair_style;
+use App\Models\Product;
 use App\Models\Skin_tone;
 use Illuminate\Http\Request;
 
@@ -19,5 +20,10 @@ class ServiceController extends Controller
         $hairLengths = Hair_length::all();
         $hairStyles = Hair_style::all();
         return view('website.service',compact(['colors','skinTones','faceShapes','hairLengths','hairStyles']));
+    }
+    public function clothesAll()
+    {
+        $products = Product::get();
+        return view('website.clothes',compact(['products']));
     }
 }

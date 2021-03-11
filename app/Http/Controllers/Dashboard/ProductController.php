@@ -63,10 +63,11 @@ class ProductController extends Controller
             for ($i=0; $i<$countColor; $i++)
             {
                 $color_ID = Product_color::insertGetId([
-                    'product'           => saveImage('products',$request->productimage[$i]),
+                    'productimage'           => saveImage('products',$request->productimage[$i]),
                     'after'             => saveImage('products',$request->after[$i]),
                     'product_color_name'=> $request->colour_name[$i],
                     'product_color_hash'=> $request->colour_hash[$i],
+                    'product_barcode'=> $request->product_barcode[$i],
                     'product_id'        => $productID,
                 ]);
                 //save size
@@ -124,30 +125,32 @@ class ProductController extends Controller
      */
     public function update(ProductRequest $request, $id)
     {
-        //delete the old product first
-        $pro = Product::find($id);
-        foreach ($pro->Color as $col)
-        {
-            foreach ($col->Size as $siz)
-            {
-                $siz->delete();
-            }
-            $col->delete();
-        }
-        $pro->delete();
-
-        $size = [];
-        foreach ((array)$request->size as $var => $val) {
-            $size[] =  $val;
-        }
-        $count = [];
-        foreach ((array)$request->count as $var => $val) {
-            $count[] =  $val;
-        }
-        $colorImageProduct = '';
-        $colorImageAfter = '';
-        //try{
+        try{
             DB::beginTransaction();
+            //delete the old product first
+            $pro = Product::find($id);
+            foreach ($pro->Color as $col)
+            {
+                foreach ($col->Size as $siz)
+                {
+                    $siz->delete();
+                }
+                $col->delete();
+            }
+            $pro->delete();
+
+            $size = [];
+            foreach ((array)$request->size as $val) {
+                $size[] =  $val;
+            }
+
+            $count = [];
+            foreach ((array)$request->count as $val) {
+                $count[] =  $val;
+            }
+
+            $colorImageProduct = '';
+            $colorImageAfter = '';
             //save product
             $productID = Product::insertGetId([
                 'product_name' => $request->product_name,
@@ -169,7 +172,6 @@ class ProductController extends Controller
                 }
                 if(isset($request->after[$i])){
                     $colorImageAfter = saveImage('products',$request->after[$i]);
-
                     if(isset($request->afterhidden[$i]))
                     {
                         unlink(base_path('/public/dashboard/images/' . $request->afterhidden[$i]));
@@ -178,9 +180,10 @@ class ProductController extends Controller
                     $colorImageAfter = $request->afterhidden[$i];
                 }
                 $color_ID = Product_color::insertGetId([
-                    'product'           => $colorImageProduct,
+                    'productimage'      => $colorImageProduct,
                     'after'             => $colorImageAfter,
                     'product_color_name'=> $request->colour_name[$i],
+                    'product_barcode'   => $request->product_barcode[$i],
                     'product_color_hash'=> $request->colour_hash[$i],
                     'product_id'        => $productID,
                 ]);
@@ -197,10 +200,10 @@ class ProductController extends Controller
             }
             DB::commit();
             return redirect()->route('product.index')->with(['success'=>'This product updated successfully']);
-        //}catch (\Exception $ex){
+        }catch (\Exception $ex){
             DB::rollBack();
-            return redirect()->route('product.index')->with(['error'=>'Error, Try again later']);
-        //}
+            return redirect()->route('product.index')->with(['error'=>$ex]);
+        }
     }
 
     /**
@@ -223,8 +226,11 @@ class ProductController extends Controller
                 {
                     $siz->delete();
                 }
-                unlink(base_path('/public/dashboard/images/' . $col->product));
-                unlink(base_path('/public/dashboard/images/' . $col->after));
+                try {
+                    unlink(base_path('/public/dashboard/images/' . $col->product));
+                    unlink(base_path('/public/dashboard/images/' . $col->after));
+                }catch (\Exception $e){}
+
                 $col->delete();
             }
             $product->delete();
@@ -234,5 +240,11 @@ class ProductController extends Controller
             DB::rollBack();
             return redirect()->route('product.index')->with(['error'=>'Error, Try again later']);
         }
+    }
+    public function validateProduct(ProductRequest $request)
+    {
+        return response()->json([
+            'status' =>true
+        ]);
     }
 }
