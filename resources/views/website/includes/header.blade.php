@@ -25,7 +25,7 @@
                     <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
                         <li class=" @if(\Illuminate\Support\Facades\Request::is('/')) active @endif "><a href="{{route('website')}}">Home</a></li>
                         <li class=" @if(\Illuminate\Support\Facades\Request::is('hair*')) active @endif "><a href="">Haircut</a></li>
-                        <li class=" @if(\Illuminate\Support\Facades\Request::is('clothes*')) active @endif "><a href="">Clothes</a></li>
+                        <li class=" @if(\Illuminate\Support\Facades\Request::is('clothes*')) active @endif "><a href="{{route('clothes.all')}}">Clothes</a></li>
                         <li class=" @if(\Illuminate\Support\Facades\Request::is('service*')) active @endif "><a href="{{route('service')}}">Services</a></li>
                     </ul>
                 </nav>

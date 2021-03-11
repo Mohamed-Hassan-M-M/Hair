@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Website;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Colour;
 use App\Models\Face_shape;
 use App\Models\Hair_length;
@@ -23,7 +24,8 @@ class ServiceController extends Controller
     }
     public function clothesAll()
     {
+        $categories = Category::get();
         $products = Product::get();
-        return view('website.clothes',compact(['products']));
+        return view('website.clothes',compact(['products','categories']));
     }
 }

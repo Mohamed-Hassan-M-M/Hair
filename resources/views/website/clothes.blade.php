@@ -12,14 +12,9 @@
                                 <h2>Category</h2>
                             </div>
                             <div class="p-3 p-lg-4 site-block-feature-7 card-body">
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
-                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>T-shirt</u></a>
+                                @foreach($categories as $category)
+                                <a href="" class="d-block mb-2 text-uppercase font-weight-bold size-32"><u>{{$category->category_name}}</u></a>
+                                @endforeach
                             </div>
                         </div>
                     </div>
