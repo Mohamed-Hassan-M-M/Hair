@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->boolean('unusual_activity')->nullable();
             $table->rememberToken();
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

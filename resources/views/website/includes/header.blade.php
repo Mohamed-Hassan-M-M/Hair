@@ -20,15 +20,14 @@
                 </h1>
             </div>
             <div class="col-10 col-md-8 d-none d-xl-block" data-aos="fade-down">
-                <nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
+                <!--<nav class="site-navigation position-relative text-right text-lg-center" role="navigation">
 
                     <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
                         <li class=" @if(\Illuminate\Support\Facades\Request::is('/')) active @endif "><a href="{{route('website')}}">Home</a></li>
                         <li class=" @if(\Illuminate\Support\Facades\Request::is('hair*')) active @endif "><a href="">Haircut</a></li>
                         <li class=" @if(\Illuminate\Support\Facades\Request::is('clothes*')) active @endif "><a href="{{route('clothes.all')}}">Clothes</a></li>
-                        <li class=" @if(\Illuminate\Support\Facades\Request::is('service*')) active @endif "><a href="{{route('service')}}">Services</a></li>
                     </ul>
-                </nav>
+                </nav>-->
             </div>
 
             <div class="col-6 col-xl-2 text-right" data-aos="fade-down">

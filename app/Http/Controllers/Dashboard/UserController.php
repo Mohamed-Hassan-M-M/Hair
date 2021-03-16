@@ -17,7 +17,7 @@ class UserController extends Controller
     {
         $users = User::whereHas('roles', function ($query) {
             $query->where('name','!=', 'admin');
-        })->get();
+        })->orderBy('created_at')->get();
         return view('dashboard.user.index',compact(['users']));
     }
 

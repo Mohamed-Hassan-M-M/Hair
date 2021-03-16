@@ -17,7 +17,7 @@ class SkinToneController extends Controller
      */
     public function index()
     {
-        $skinTones = Skin_tone::all();
+        $skinTones = Skin_tone::orderBy('created_at')->get();
         return view('dashboard.skinTone.index',compact(['skinTones']));
     }
 

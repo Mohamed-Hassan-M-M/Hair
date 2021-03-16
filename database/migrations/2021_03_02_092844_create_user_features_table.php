@@ -23,8 +23,7 @@ class CreateUserFeaturesTable extends Migration
             $table->unsignedBigInteger('hair_color_id')->nullable();
             $table->string('uploaded_image',255);//image
             $table->string('saved_image',255);//image
-            //$table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

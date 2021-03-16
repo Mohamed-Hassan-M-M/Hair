@@ -18,7 +18,7 @@ class CreateSkinTonesTable extends Migration
             $table->string('skin_tone_name',64);
             $table->unsignedBigInteger('skin_tone_colour_id');
             $table->string('link_url',255);//image
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

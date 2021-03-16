@@ -17,7 +17,7 @@ class CreateHairLengthsTable extends Migration
             $table->id();
             $table->string('hair_length_name',128);
             $table->string('link_url',255);//image
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

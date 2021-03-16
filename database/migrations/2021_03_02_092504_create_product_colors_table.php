@@ -21,7 +21,7 @@ class CreateProductColorsTable extends Migration
             $table->string('productimage',255);//image
             $table->string('after',255);//image
             $table->unsignedBigInteger('product_id');
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

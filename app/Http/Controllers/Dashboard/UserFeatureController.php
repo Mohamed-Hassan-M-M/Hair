@@ -15,7 +15,7 @@ class UserFeatureController extends Controller
      */
     public function index()
     {
-        $activities = User_feature::all();
+        $activities = User_feature::orderBy('created_at')->get();
         return view('dashboard.userFeature.index',compact(['activities']));
     }
 

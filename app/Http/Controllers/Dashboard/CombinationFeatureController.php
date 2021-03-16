@@ -21,7 +21,7 @@ class CombinationFeatureController extends Controller
      */
     public function index()
     {
-        $combinations = Combination_feature::all();
+        $combinations = Combination_feature::orderBy('created_at')->get();
         return view('dashboard.combinationFeature.index',compact(['combinations']));
     }
 

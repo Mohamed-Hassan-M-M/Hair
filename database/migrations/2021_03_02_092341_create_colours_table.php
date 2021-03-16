@@ -18,7 +18,7 @@ class CreateColoursTable extends Migration
             $table->string('colour_name',64);
             $table->string('colour_hash',64);
             $table->string('link_url',255);//image
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

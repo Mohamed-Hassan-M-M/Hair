@@ -17,7 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('product_name',128);
             $table->unsignedBigInteger('category_id');
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

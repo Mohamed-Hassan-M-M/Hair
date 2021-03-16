@@ -16,7 +16,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        $colors = Colour::all();
+        $colors = Colour::orderBy('created_at')->get();
         return view('dashboard.color.index',compact(['colors']));
     }
 

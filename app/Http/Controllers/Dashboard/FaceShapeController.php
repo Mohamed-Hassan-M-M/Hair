@@ -16,7 +16,7 @@ class FaceShapeController extends Controller
      */
     public function index()
     {
-        $faceShapes = Face_shape::all();
+        $faceShapes = Face_shape::orderBy('created_at')->get();
         return view('dashboard.faceShape.index',compact(['faceShapes']));
     }
 

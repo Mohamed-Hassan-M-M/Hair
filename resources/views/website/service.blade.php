@@ -122,30 +122,7 @@
                     $('#hairModule').html('You can upload images only')
                 }
             });
-            $("#clothesModule").click(function(e){
-                e.preventDefault();
-                $("#imageclothes").click();
-            });
-            $('#imageclothes').change(function(){
-                var input = this;
-                var url = $(this).val();
-                var ext = url.substring(url.lastIndexOf('.') + 1).toLowerCase();
-                if (input.files && input.files[0]&& (ext == "gif" || ext == "png" || ext == "jpeg" || ext == "jpg"))
-                {
-                    var reader = new FileReader();
 
-                    reader.onload = function (e) {
-                        $("#divclothes").hide();
-                        $('#srcclothes').attr('src',e.target.result);
-                        $('#srcclothes').show();
-                    }
-                    reader.readAsDataURL(input.files[0]);
-                }
-                else
-                {
-                    $('#clothesModule').html('You can upload images only')
-                }
-            });
         });
     </script>
 @endsection

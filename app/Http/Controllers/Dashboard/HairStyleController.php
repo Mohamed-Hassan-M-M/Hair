@@ -16,7 +16,7 @@ class HairStyleController extends Controller
      */
     public function index()
     {
-        $hairStylies = Hair_style::all();
+        $hairStylies = Hair_style::orderBy('created_at')->get();
         return view('dashboard.hairStyle.index',compact(['hairStylies']));
     }
 

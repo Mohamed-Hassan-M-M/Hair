@@ -21,7 +21,7 @@ class CreateCombinationFeaturesTable extends Migration
             $table->unsignedBigInteger('hair_length_id')->nullable();
             $table->unsignedBigInteger('hair_color_id')->nullable();
             $table->string('link_url',255);//image
-            $table->timestamps();
+            $table->timestamps()->useCurrent();
         });
     }
 

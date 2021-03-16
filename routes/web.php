@@ -63,9 +63,10 @@ Route::group(['prefix'=>'dashboard', 'namespace'=>'Dashboard'], function () {
 Route::group(['namespace'=>'Website'],function (){
 
     Route::get('/', 'WebsiteController@index')->name('website');
-    Route::get('/service', 'ServiceController@index')->name('service');
     Route::get('/clothes', 'ServiceController@clothesAll')->name('clothes.all');
     Route::get('/clothes/{id}', 'ServiceController@clothesCategory')->name('clothes.cat');
+    Route::get('/product', 'ServiceController@getProduct')->name('product.show');
+    Route::get('/size', 'ServiceController@getSize')->name('size.show');
 
 
     //test barcode
